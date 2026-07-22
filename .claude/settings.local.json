@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:cantoroficialjoaov.wixsite.com)",
+      "Bash(npm install *)"
+    ]
+  }
+}

@@ -1,0 +1,202 @@
+// João Vitor — schema do blueprint v2 (docs/ARQUITETURA.md §5).
+// Neon Postgres: DATABASE_URL = endpoint POOLED (-pooler); DIRECT_URL = direto (migrations).
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+// --- Auth (Credentials → JWT; revogação via tokenVersion, sem tabela Session) ---
+model AdminUser {
+  id                   String    @id @default(cuid())
+  email                String    @unique
+  passwordHash         String
+  name                 String
+  tokenVersion         Int       @default(0) // bump = revoga todas as sessões
+  totpSecret           String? // 2FA fase 2
+  passwordResetToken   String?   @unique
+  passwordResetExpires DateTime?
+  lastLoginAt          DateTime?
+  createdAt            DateTime  @default(now())
+}
+
+// --- Mídia (fonte única de imagem) ---
+model MediaAsset {
+  id        String   @id @default(cuid())
+  blobKey   String   @unique
+  url       String
+  mimeType  String
+  sizeBytes Int
+  width     Int?
+  height    Int?
+  alt       String   @default("")
+  createdAt DateTime @default(now())
+
+  showCovers         Show[]          @relation("ShowCover")
+  galleryItems       GalleryItem[]   @relation("GalleryMedia")
+  testimonialAvatars Testimonial[]   @relation("TestimonialAvatar")
+  pressAssets        PressKitAsset[] @relation("PressMedia")
+  heroFor            SiteSettings[]  @relation("SettingsHero")
+  clientLogos        ClientLogo[]    @relation("ClientLogoMedia")
+}
+
+// --- Conteúdo público ---
+model Show {
+  id          String      @id @default(cuid())
+  title       String
+  venue       String
+  city        String
+  state       String
+  startsAt    DateTime
+  ticketUrl   String?
+  description String?
+  isCancelled Boolean     @default(false) // upcoming/past é DERIVADO de startsAt
+  coverId     String?
+  cover       MediaAsset? @relation("ShowCover", fields: [coverId], references: [id])
+  isPublished Boolean     @default(false)
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  @@index([startsAt, isCancelled])
+  @@index([isPublished])
+}
+
+model GalleryItem {
+  id          String     @id @default(cuid())
+  mediaId     String
+  media       MediaAsset @relation("GalleryMedia", fields: [mediaId], references: [id])
+  caption     String?
+  category    GalleryTag @default(SHOW)
+  sortOrder   Int        @default(0)
+  isPublished Boolean    @default(false)
+
+  @@index([sortOrder])
+}
+
+enum GalleryTag {
+  SHOW
+  CORPORATE
+  STUDIO
+  OTHER
+}
+
+model Video {
+  id          String  @id @default(cuid())
+  youtubeId   String
+  title       String
+  isFeatured  Boolean @default(false)
+  sortOrder   Int     @default(0)
+  isPublished Boolean @default(false)
+}
+
+model Service {
+  id          String  @id @default(cuid())
+  title       String
+  description String
+  icon        String?
+  sortOrder   Int     @default(0)
+  isPublished Boolean @default(false)
+}
+
+model Differential {
+  id          String  @id @default(cuid())
+  title       String
+  description String
+  icon        String?
+  sortOrder   Int     @default(0)
+  isPublished Boolean @default(false)
+}
+
+model Testimonial {
+  id          String      @id @default(cuid())
+  author      String
+  role        String?
+  quote       String
+  avatarId    String?
+  avatar      MediaAsset? @relation("TestimonialAvatar", fields: [avatarId], references: [id])
+  sortOrder   Int         @default(0)
+  isPublished Boolean     @default(false)
+}
+
+model ClientLogo {
+  id          String     @id @default(cuid())
+  name        String
+  mediaId     String
+  media       MediaAsset @relation("ClientLogoMedia", fields: [mediaId], references: [id])
+  websiteUrl  String?
+  sortOrder   Int        @default(0)
+  isPublished Boolean    @default(false)
+}
+
+model Stat {
+  id          String  @id @default(cuid())
+  label       String
+  value       String
+  sortOrder   Int     @default(0)
+  isPublished Boolean @default(false)
+}
+
+model PressKitAsset {
+  id          String      @id @default(cuid())
+  label       String
+  type        PressType
+  mediaId     String?
+  media       MediaAsset? @relation("PressMedia", fields: [mediaId], references: [id])
+  externalUrl String?
+  sortOrder   Int         @default(0)
+}
+
+enum PressType {
+  PHOTO
+  LOGO
+  RIDER
+  BIO_PDF
+  OTHER
+}
+
+// --- Config/conteúdo singleton (sempre 1 linha, id = "singleton") ---
+model SiteSettings {
+  id               String      @id @default("singleton")
+  bioHeadline      String
+  bioBody          String // markdown → renderizar SANITIZADO
+  heroId           String?
+  hero             MediaAsset? @relation("SettingsHero", fields: [heroId], references: [id])
+  whatsapp         String
+  instagramUrl     String
+  youtubeUrl       String
+  facebookUrl      String
+  spotifyArtistUrl String
+  updatedAt        DateTime    @updatedAt
+}
+
+// --- Leads (ativo comercial) ---
+model ContactMessage {
+  id          String     @id @default(cuid())
+  name        String
+  email       String
+  phone       String?
+  company     String?
+  eventType   String?
+  eventDate   DateTime?
+  city        String?
+  budgetRange String?
+  message     String
+  status      LeadStatus @default(NEW)
+  notes       String?
+  createdAt   DateTime   @default(now())
+
+  @@index([status])
+  @@index([createdAt])
+}
+
+enum LeadStatus {
+  NEW
+  CONTACTED
+  WON
+  LOST
+}

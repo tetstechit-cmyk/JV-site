@@ -1,0 +1,245 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* ============================================================
+   JOÃO VITOR — Design System "Meia-Noite no Palco"
+   Dark cinematográfico. Preto de palco, luz de refletor (âmbar),
+   coral da waveform da logo, teal de contraluz.
+   ============================================================ */
+
+@theme inline {
+  /* mapeamento shadcn → paleta */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  /* tokens de marca (geram utilitários: bg-ink, text-fg, bg-amber, ...) */
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-fg: var(--fg);
+  --color-fg-muted: var(--fg-muted);
+  --color-line: var(--line);
+  --color-amber: var(--amber);
+  --color-amber-bright: var(--amber-bright);
+  --color-coral: var(--coral);
+  --color-teal: var(--teal);
+
+  /* tipografia */
+  --font-sans: var(--font-hanken);
+  --font-display: var(--font-oswald);
+  --font-heading: var(--font-oswald);
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  /* raio */
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+}
+
+/* Paleta bruta — o site é dark-only, então :root já carrega o tema escuro. */
+:root {
+  --ink: #0a0a0b; /* fundo de palco */
+  --ink-2: #101013;
+  --surface: #16161a; /* cards */
+  --surface-2: #1e1e23; /* elevado */
+  --fg: #f4f1ea; /* branco quente */
+  --fg-muted: #a29c93; /* cinza quente */
+  --line: color-mix(in oklab, #f4f1ea 12%, transparent);
+
+  --amber: #eaa23a; /* refletor — primária */
+  --amber-bright: #f7c25c;
+  --coral: #ec6a5c; /* waveform da logo — secundária */
+  --teal: #33b7ac; /* contraluz — terciária, dose pequena */
+
+  --radius: 0.7rem;
+
+  /* shadcn tokens → marca */
+  --background: var(--ink);
+  --foreground: var(--fg);
+  --card: var(--surface);
+  --card-foreground: var(--fg);
+  --popover: var(--surface);
+  --popover-foreground: var(--fg);
+  --primary: var(--amber);
+  --primary-foreground: #120c02;
+  --secondary: var(--surface-2);
+  --secondary-foreground: var(--fg);
+  --muted: var(--surface-2);
+  --muted-foreground: var(--fg-muted);
+  --accent: var(--surface-2);
+  --accent-foreground: var(--amber-bright);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: var(--line);
+  --input: color-mix(in oklab, #f4f1ea 14%, transparent);
+  --ring: var(--amber);
+
+  --chart-1: var(--amber);
+  --chart-2: var(--coral);
+  --chart-3: var(--teal);
+  --chart-4: var(--amber-bright);
+  --chart-5: var(--fg-muted);
+
+  --sidebar: var(--ink-2);
+  --sidebar-foreground: var(--fg);
+  --sidebar-primary: var(--amber);
+  --sidebar-primary-foreground: #120c02;
+  --sidebar-accent: var(--surface-2);
+  --sidebar-accent-foreground: var(--fg);
+  --sidebar-border: var(--line);
+  --sidebar-ring: var(--amber);
+}
+
+/* .dark reusa os mesmos valores (html leva .dark p/ ligar utilitários dark:) */
+.dark {
+  --background: var(--ink);
+  --foreground: var(--fg);
+  --card: var(--surface);
+  --card-foreground: var(--fg);
+  --popover: var(--surface);
+  --popover-foreground: var(--fg);
+  --primary: var(--amber);
+  --primary-foreground: #120c02;
+  --secondary: var(--surface-2);
+  --secondary-foreground: var(--fg);
+  --muted: var(--surface-2);
+  --muted-foreground: var(--fg-muted);
+  --accent: var(--surface-2);
+  --accent-foreground: var(--amber-bright);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: var(--line);
+  --input: color-mix(in oklab, #f4f1ea 14%, transparent);
+  --ring: var(--amber);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+    /* rede de segurança: nenhuma seção gera scroll horizontal.
+       clip (não hidden) não quebra position:sticky/fixed. */
+    overflow-x: clip;
+    /* Atmosfera contida: UM único brilho de refletor, discreto. */
+    background-image: radial-gradient(
+      55% 45% at 50% -10%,
+      color-mix(in oklab, var(--amber) 9%, transparent) 0%,
+      transparent 66%
+    );
+    background-attachment: fixed;
+  }
+  html {
+    @apply font-sans;
+  }
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.01em;
+  }
+  /* Tailwind v4 removeu cursor:pointer default em <button> — repõe. */
+  button:not(:disabled),
+  [role="button"]:not([aria-disabled="true"]) {
+    cursor: pointer;
+  }
+}
+
+/* ============================================================
+   Soundwave — motif de assinatura (usado por <Soundwave />)
+   ============================================================ */
+.soundwave-bar {
+  flex: 1 1 0%;
+  min-width: 2px;
+  max-width: 6px;
+  align-self: stretch;
+  border-radius: 9999px;
+  transform-origin: bottom;
+  transform: scaleY(var(--peak));
+  opacity: 0.9;
+  background: linear-gradient(
+    to top,
+    var(--amber) 0%,
+    var(--coral) 62%,
+    var(--amber-bright) 100%
+  );
+}
+/* Movimento contido: a onda "respira" (não pula). Gentil e lento. */
+[data-animated] .soundwave-bar {
+  animation: soundwave 2s ease-in-out infinite;
+  animation-delay: calc(var(--i) * -0.06s);
+}
+@keyframes soundwave {
+  0%, 100% {
+    transform: scaleY(calc(var(--peak) * 0.58));
+    opacity: 0.72;
+  }
+  50% {
+    transform: scaleY(var(--peak));
+    opacity: 1;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-animated] .soundwave-bar {
+    animation: none;
+    transform: scaleY(var(--peak));
+  }
+}
+
+/* voz de palco — marquee lento das frases */
+.marquee-track {
+  animation: marquee 42s linear infinite;
+}
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
+  }
+}
+
+/* utilitário de textura/grão sutil p/ atmosfera premium */
+.grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
