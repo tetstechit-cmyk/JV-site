@@ -70,7 +70,7 @@ export function SiteFooter() {
               alt="Gigeck Produções"
               width={494}
               height={282}
-              className="h-7 w-auto brightness-0 invert"
+              className="h-9 w-auto brightness-0 invert"
             />
           </div>
         </div>

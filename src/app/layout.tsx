@@ -58,7 +58,9 @@ export default function RootLayout({
       className={`${oswald.variable} ${hanken.variable} dark h-full antialiased`}
       suppressHydrationWarning
     >
-      <body className="min-h-full">{children}</body>
+      <body className="min-h-full" suppressHydrationWarning>
+        {children}
+      </body>
     </html>
   );
 }
