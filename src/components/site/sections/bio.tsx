@@ -45,7 +45,7 @@ export function Bio() {
             title="João Vitor no Spotify"
             src="https://open.spotify.com/embed/artist/1NcHjMiIbcuCDUW9sg0Fls?utm_source=generator&theme=0"
             width="100%"
-            height="352"
+            height="480"
             loading="lazy"
             style={{ border: 0, borderRadius: 12 }}
             allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"

@@ -234,6 +234,13 @@
   }
 }
 
+/* scroll suave ao clicar no menu (glide, não pulo) — respeita reduced-motion */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
 /* utilitário de textura/grão sutil p/ atmosfera premium */
 .grain::after {
   content: "";

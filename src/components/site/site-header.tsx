@@ -22,8 +22,9 @@ const CTA_TEXT = "Olá João! Quero um orçamento para meu evento.";
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
+  const [active, setActive] = useState("inicio");
 
-  // Escape fecha; trava o scroll do body enquanto o menu está aberto.
+  // Escape fecha o menu mobile; trava o scroll do body enquanto aberto.
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => {
@@ -36,6 +37,26 @@ export function SiteHeader() {
       document.body.style.overflow = "";
     };
   }, [open]);
+
+  // Scroll-spy: marca a seção que está no centro da viewport.
+  useEffect(() => {
+    const ids = ["inicio", ...NAV.map((n) => n.href.slice(1))];
+    const els = ids
+      .map((id) => document.getElementById(id))
+      .filter((e): e is HTMLElement => e !== null);
+    if (!els.length) return;
+    const io = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((e) => e.isIntersecting)
+          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+        if (visible[0]) setActive(visible[0].target.id);
+      },
+      { rootMargin: "-45% 0px -50% 0px", threshold: 0 },
+    );
+    els.forEach((el) => io.observe(el));
+    return () => io.disconnect();
+  }, []);
 
   return (
     <>
@@ -58,15 +79,28 @@ export function SiteHeader() {
           </a>
 
           <nav className="hidden items-center gap-6 lg:flex">
-            {NAV.map((n) => (
-              <a
-                key={n.href}
-                href={n.href}
-                className="font-display text-xs font-semibold uppercase tracking-[0.18em] text-fg-muted transition-colors hover:text-fg"
-              >
-                {n.label}
-              </a>
-            ))}
+            {NAV.map((n) => {
+              const isActive = active === n.href.slice(1);
+              return (
+                <a
+                  key={n.href}
+                  href={n.href}
+                  aria-current={isActive ? "true" : undefined}
+                  className={cn(
+                    "group relative font-display text-xs font-semibold uppercase tracking-[0.18em] transition-colors",
+                    isActive ? "text-fg" : "text-fg-muted hover:text-fg",
+                  )}
+                >
+                  {n.label}
+                  <span
+                    className={cn(
+                      "absolute -bottom-2 left-0 h-px bg-amber transition-[width] duration-300 ease-out",
+                      isActive ? "w-full" : "w-0 group-hover:w-full",
+                    )}
+                  />
+                </a>
+              );
+            })}
           </nav>
 
           <div className="flex items-center gap-2">
