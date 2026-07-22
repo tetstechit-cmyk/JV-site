@@ -74,6 +74,19 @@ export function SiteFooter() {
             />
           </div>
         </div>
+
+        <div className="mt-8 flex items-center justify-center gap-2 opacity-55">
+          <span className="text-[0.65rem] uppercase tracking-[0.15em] text-fg-muted">
+            Desenvolvido por
+          </span>
+          <Image
+            src="/brand/corex.png"
+            alt="Corex Sistemas"
+            width={4962}
+            height={1167}
+            className="h-4 w-auto"
+          />
+        </div>
       </Container>
     </footer>
   );
