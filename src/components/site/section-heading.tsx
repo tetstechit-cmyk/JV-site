@@ -3,23 +3,33 @@ import { cn } from "@/lib/utils";
 export function SectionHeading({
   eyebrow,
   title,
+  lead,
+  align = "left",
   className,
 }: {
   eyebrow: string;
   title: string;
+  lead?: string;
+  align?: "left" | "center";
   className?: string;
 }) {
   return (
-    <div className={cn("mb-12", className)}>
-      <div className="mb-4 flex items-center gap-3">
-        <span className="h-2 w-2 rounded-full bg-amber shadow-[0_0_12px] shadow-amber/50" />
-        <span className="font-display text-xs font-semibold uppercase tracking-[0.3em] text-fg-muted">
-          {eyebrow}
-        </span>
-      </div>
-      <h2 className="font-display text-4xl font-bold uppercase tracking-tight text-fg sm:text-5xl">
+    <div
+      className={cn(
+        "mb-14",
+        align === "center" && "mx-auto max-w-2xl text-center",
+        className,
+      )}
+    >
+      <p className="eyebrow mb-5">{eyebrow}</p>
+      <h2 className="font-display text-[clamp(2rem,4.4vw,3.4rem)] leading-[1.1] font-semibold text-fg">
         {title}
       </h2>
+      {lead ? (
+        <p className="mt-5 max-w-xl text-base leading-relaxed text-fg-muted sm:text-lg">
+          {lead}
+        </p>
+      ) : null}
     </div>
   );
 }

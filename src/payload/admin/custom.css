@@ -1,0 +1,396 @@
+/* ============================================================
+   Painel João Vitor — identidade "Memória"
+   Preto fosco + champanhe + Cormorant Garamond nos títulos.
+   Sobrescreve as variáveis do Payload para o painel ter a mesma
+   linguagem visual do site.
+   ============================================================ */
+
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@400;500;700&display=swap");
+
+:root {
+  /* marca */
+  --jv-ink: #0b0b0b;
+  --jv-ink-2: #101010;
+  --jv-surface: #151515;
+  --jv-surface-2: #1c1c1c;
+  --jv-fg: #f2efe9;
+  --jv-muted: #9d9891;
+  --jv-champanhe: #d8b370;
+  --jv-champanhe-claro: #e8cb96;
+  --jv-linha: rgba(242, 239, 233, 0.11);
+
+  /* tipografia do painel */
+  --font-body: "DM Sans", system-ui, sans-serif;
+  --font-serif: "Cormorant Garamond", Georgia, serif;
+
+  /* acento do Payload → champanhe */
+  --theme-success-500: var(--jv-champanhe);
+  --color-success-500: var(--jv-champanhe);
+}
+
+/* ---------- TEMA ESCURO (padrão do painel) ---------- */
+html[data-theme="dark"] {
+  --theme-bg: var(--jv-ink);
+  --theme-input-bg: var(--jv-surface);
+  --theme-text: var(--jv-fg);
+
+  --theme-elevation-0: var(--jv-ink);
+  --theme-elevation-50: var(--jv-ink-2);
+  --theme-elevation-100: var(--jv-surface);
+  --theme-elevation-150: var(--jv-surface-2);
+  --theme-elevation-200: #232323;
+  --theme-elevation-250: #2a2a2a;
+  --theme-elevation-300: #333;
+  --theme-elevation-400: #4a4a4a;
+  --theme-elevation-500: #6b6b6b;
+  --theme-elevation-600: var(--jv-muted);
+  --theme-elevation-800: #d6d2cb;
+  --theme-elevation-900: var(--jv-fg);
+  --theme-elevation-1000: #fff;
+}
+
+/* ---------- BASE ---------- */
+body {
+  font-family: var(--font-body);
+  background: var(--jv-ink);
+}
+
+/* Títulos em serif — mesma voz da landing page */
+.dashboard h1,
+.collection-list h1,
+.doc-header__title,
+.step-nav,
+h1.render-title,
+.list-header h1,
+.global-edit h1 {
+  font-family: var(--font-serif) !important;
+  font-weight: 500 !important;
+  letter-spacing: -0.01em;
+}
+
+.dashboard h1 {
+  font-size: 2.4rem !important;
+}
+
+/* ---------- NAV LATERAL ---------- */
+.nav {
+  background: var(--jv-ink-2);
+  border-right: 1px solid var(--jv-linha);
+}
+
+.nav__wrap {
+  padding-inline: 0.6rem;
+}
+
+/* Itens: mais respiro e alvo de clique maior */
+.nav__link {
+  border-radius: 6px;
+  padding-block: 0.55rem;
+  padding-inline: 0.7rem;
+  font-size: 0.87rem;
+  line-height: 1.3;
+  transition:
+    background 0.18s ease,
+    color 0.18s ease;
+}
+
+.nav__link:hover {
+  background: var(--jv-surface-2);
+  color: var(--jv-fg);
+}
+
+/* Ativo: barra champanhe à esquerda — leitura imediata de "onde estou" */
+.nav__link--active,
+.nav__link[aria-current="page"] {
+  position: relative;
+  background: color-mix(in oklab, var(--jv-champanhe) 12%, transparent);
+  color: var(--jv-champanhe-claro);
+  font-weight: 500;
+}
+
+.nav__link--active::before,
+.nav__link[aria-current="page"]::before {
+  content: "";
+  position: absolute;
+  inset-block: 0.35rem;
+  left: 0;
+  width: 2px;
+  border-radius: 2px;
+  background: var(--jv-champanhe);
+}
+
+/* Rótulo de grupo: separa os blocos de verdade */
+.nav-group__toggle,
+.nav-group__label {
+  font-family: var(--font-body);
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: color-mix(in oklab, var(--jv-muted) 85%, transparent);
+  padding-inline: 0.7rem;
+}
+
+/* Espaço entre grupos + linha sutil de separação */
+.nav-group {
+  margin-block-start: 1.35rem;
+  padding-block-start: 1.1rem;
+  border-block-start: 1px solid var(--jv-linha);
+}
+
+.nav-group:first-of-type {
+  margin-block-start: 0.4rem;
+  padding-block-start: 0;
+  border-block-start: none;
+}
+
+.nav-group__indicator {
+  color: var(--jv-muted);
+}
+
+/* ---------- RODAPÉ DA NAV (conta / sair) ----------
+   O Payload esconde o logout atrás de um ícone. Para um mantenedor
+   não-técnico isso é invisível — então damos destaque real. */
+.nav__controls {
+  gap: 0.4rem;
+  padding: 0.75rem 0.6rem;
+  border-block-start: 1px solid var(--jv-linha);
+  background: var(--jv-ink);
+}
+
+.nav__controls a,
+.nav__controls button {
+  border-radius: 6px;
+  padding: 0.45rem;
+  color: var(--jv-muted);
+  transition:
+    background 0.18s ease,
+    color 0.18s ease;
+}
+
+.nav__controls a:hover,
+.nav__controls button:hover {
+  background: var(--jv-surface-2);
+  color: var(--jv-fg);
+}
+
+/* "Sair" ganha cor de alerta discreta — ação de saída, não navegação */
+.nav__controls a[href*="logout"]:hover {
+  background: color-mix(in oklab, #d9705f 16%, transparent);
+  color: #f0a89b;
+}
+
+/* ---------- BOTÕES ---------- */
+/* especificidade alta: o Payload define o primary por variável interna */
+html[data-theme="dark"] .btn.btn--style-primary,
+html[data-theme="dark"] .btn.btn--style-primary:link,
+.btn.btn--style-primary {
+  background-color: var(--jv-champanhe) !important;
+  border-color: var(--jv-champanhe) !important;
+  color: #14100a !important;
+  font-weight: 500;
+}
+
+html[data-theme="dark"] .btn.btn--style-primary .btn__content,
+.btn.btn--style-primary .btn__content {
+  color: #14100a !important;
+}
+
+html[data-theme="dark"] .btn.btn--style-primary:hover:not(:disabled),
+.btn.btn--style-primary:hover:not(:disabled) {
+  background-color: var(--jv-champanhe-claro) !important;
+  border-color: var(--jv-champanhe-claro) !important;
+}
+
+.btn--style-secondary {
+  border-color: var(--jv-linha);
+  color: var(--jv-fg);
+}
+
+.btn--style-secondary:hover:not(:disabled) {
+  background: var(--jv-surface-2);
+}
+
+/* ---------- CAMPOS ---------- */
+.field-type input,
+.field-type textarea,
+.field-type .rs__control {
+  background: var(--jv-surface);
+  border-color: var(--jv-linha);
+  border-radius: 4px;
+}
+
+.field-type input:focus,
+.field-type textarea:focus {
+  border-color: var(--jv-champanhe);
+  box-shadow: 0 0 0 1px color-mix(in oklab, var(--jv-champanhe) 45%, transparent);
+}
+
+.field-label {
+  font-weight: 500;
+  color: var(--jv-fg);
+}
+
+.field-description {
+  color: var(--jv-muted);
+}
+
+/* ---------- ABAS (as 5 abas da Página Inicial) ---------- */
+.tabs-field__tab-button {
+  font-family: var(--font-body);
+  letter-spacing: 0.02em;
+}
+
+.tabs-field__tab-button--active {
+  color: var(--jv-champanhe-claro);
+  border-bottom-color: var(--jv-champanhe);
+}
+
+/* ---------- CARDS / LISTAS ---------- */
+.card,
+.collection-list__wrap,
+.table {
+  border-radius: 6px;
+  border-color: var(--jv-linha);
+}
+
+.table thead th {
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--jv-muted);
+}
+
+/* ============================================================
+   LOGIN — primeira impressão do painel.
+   Fundo cinematográfico + card elevado, na linguagem do site.
+   ============================================================ */
+.login {
+  position: relative;
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 2rem 1.25rem;
+  overflow: hidden;
+}
+
+/* atmosfera: foto do artista bem escurecida e desfocada */
+.login::before {
+  content: "";
+  position: absolute;
+  inset: -10%;
+  background: url("/joao-banner.png") center / cover no-repeat;
+  opacity: 0.13;
+  filter: blur(10px) saturate(0.7);
+  transform: scale(1.06);
+  pointer-events: none;
+}
+
+/* luz de refletor no topo + vinheta nas bordas */
+.login::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      60% 45% at 50% 0%,
+      color-mix(in oklab, var(--jv-champanhe) 16%, transparent),
+      transparent 65%
+    ),
+    radial-gradient(120% 90% at 50% 50%, transparent 35%, var(--jv-ink) 100%);
+}
+
+/* o cartão */
+/* O Payload impõe max-width 480px e o centro do grid encolhe o card
+   até a largura do conteúdo — por isso precisamos sobrescrever. */
+.login .template-minimal__wrap,
+.login.template-minimal--width-normal .template-minimal__wrap {
+  position: relative;
+  z-index: 1;
+  width: min(540px, 100%) !important;
+  max-width: 540px !important;
+  box-sizing: border-box;
+  padding: 2.6rem 3rem 2.4rem;
+  background: color-mix(in oklab, var(--jv-surface) 92%, transparent);
+  border: 1px solid var(--jv-linha);
+  border-radius: 14px;
+  box-shadow:
+    0 30px 70px -20px rgba(0, 0, 0, 0.75),
+    0 0 0 1px rgba(255, 255, 255, 0.02) inset;
+  backdrop-filter: blur(14px);
+}
+
+/* fio champanhe no topo do cartão */
+.login .template-minimal__wrap::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 12%;
+  right: 12%;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--jv-champanhe),
+    transparent
+  );
+}
+
+.login__brand {
+  margin-bottom: 2rem;
+}
+
+/* É o FORM que dita a largura: o card é um grid item centralizado, então
+   encolhe até o conteúdo. Definir largura no card não adianta — tem que
+   ser aqui. */
+.login form.login__form,
+.login .login__form {
+  width: 420px;
+  max-width: 100%;
+}
+
+.login .field-type {
+  margin-bottom: 1.15rem;
+}
+
+.login .field-label {
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--jv-muted);
+}
+
+.login .field-type input {
+  height: 46px;
+  padding-inline: 0.9rem;
+  background: color-mix(in oklab, var(--jv-ink) 65%, transparent);
+  border-radius: 8px;
+}
+
+.login .form-submit {
+  margin-top: 1.6rem;
+}
+
+.login .form-submit .btn {
+  width: 100%;
+  height: 46px;
+  font-size: 0.9rem;
+  letter-spacing: 0.02em;
+}
+
+/* "Esqueceu a senha?" discreto */
+.login a {
+  font-size: 0.8rem;
+  color: var(--jv-muted);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: color 0.18s ease, border-color 0.18s ease;
+}
+
+.login a:hover {
+  color: var(--jv-champanhe-claro);
+  border-bottom-color: color-mix(in oklab, var(--jv-champanhe) 50%, transparent);
+}

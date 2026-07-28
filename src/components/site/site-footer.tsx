@@ -7,37 +7,59 @@ import {
   SpotifyIcon,
 } from "@/components/brand/social-icons";
 import { Container } from "./container";
-import { settings, waLink } from "@/lib/site";
+import { settings as mockSettings, promise } from "@/lib/site";
+import { getSettings, txt, img } from "@/lib/content";
 
-const socials = [
-  { href: settings.instagramUrl, label: "Instagram", Icon: InstagramIcon },
-  { href: settings.youtubeUrl, label: "YouTube", Icon: YoutubeIcon },
-  { href: settings.facebookUrl, label: "Facebook", Icon: FacebookIcon },
-  { href: settings.spotifyArtistUrl, label: "Spotify", Icon: SpotifyIcon },
-];
+export async function SiteFooter() {
+  const cfg = await getSettings();
+  const s = (cfg ?? {}) as Record<string, unknown>;
 
-export function SiteFooter() {
+  const settings = {
+    whatsapp: txt(s.whatsapp, mockSettings.whatsapp),
+    whatsappDisplay: txt(s.whatsappExibicao, mockSettings.whatsappDisplay),
+    city: txt(s.cidade, mockSettings.city),
+    instagramUrl: txt(s.instagram, mockSettings.instagramUrl),
+    youtubeUrl: txt(s.youtube, mockSettings.youtubeUrl),
+    facebookUrl: txt(s.facebook, mockSettings.facebookUrl),
+    spotifyArtistUrl: txt(s.spotify, mockSettings.spotifyArtistUrl),
+  };
+
+  const waLink = (t: string) =>
+    "https://wa.me/" + settings.whatsapp + "?text=" + encodeURIComponent(t);
+
+  const socials = [
+    { href: settings.instagramUrl, label: "Instagram", Icon: InstagramIcon },
+    { href: settings.youtubeUrl, label: "YouTube", Icon: YoutubeIcon },
+    { href: settings.facebookUrl, label: "Facebook", Icon: FacebookIcon },
+    { href: settings.spotifyArtistUrl, label: "Spotify", Icon: SpotifyIcon },
+  ];
+
   return (
     <footer className="border-t border-line bg-ink-2">
-      <Container className="py-14">
-        <Soundwave bars={40} height={30} className="mb-8 opacity-50" />
-        <div className="flex flex-col items-start justify-between gap-8 sm:flex-row sm:items-center">
+      <Container className="py-16">
+        <p className="mx-auto max-w-2xl text-center font-display text-[clamp(1.3rem,2.6vw,1.9rem)] leading-snug font-semibold text-fg">
+          {promise.line1}{" "}
+          <span className="italic text-amber">{promise.line2}</span>
+        </p>
+
+        <Soundwave bars={40} height={26} className="mx-auto mt-10 max-w-sm opacity-40" />
+
+        <div className="mt-12 flex flex-col items-start justify-between gap-8 sm:flex-row sm:items-center">
           <div>
-            <Image
-              src="/brand/logo-jv-trim.png"
-              alt="João Vitor — Cantor Oficial"
-              width={722}
-              height={404}
-              className="h-11 w-auto"
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={img(s.logo) ?? "/brand/logo-jv-trim.png"}
+              alt="João Vitor"
+              className="h-10 w-auto opacity-90"
             />
             <p className="mt-3 text-sm text-fg-muted">
-              Cantor Sertanejo · {settings.city}
+              Experiências Musicais · {settings.city}
             </p>
             <a
-              href={waLink("Olá João!")}
+              href={waLink("Olá!")}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-3 inline-block text-sm text-amber hover:underline"
+              className="mt-2 inline-block text-sm text-amber hover:underline"
             >
               {settings.whatsappDisplay}
             </a>
@@ -57,12 +79,13 @@ export function SiteFooter() {
             ))}
           </div>
         </div>
-        <div className="mt-10 flex flex-col items-start justify-between gap-4 border-t border-line/60 pt-6 sm:flex-row sm:items-center">
+
+        <div className="mt-12 flex flex-col items-start justify-between gap-4 border-t border-line/60 pt-6 sm:flex-row sm:items-center">
           <p className="text-xs text-fg-muted">
             © {new Date().getFullYear()} João Vitor · Cantor Oficial.
           </p>
           <div className="flex items-center gap-2 opacity-70">
-            <span className="text-[0.65rem] uppercase tracking-widest text-fg-muted">
+            <span className="font-sans text-[0.6rem] tracking-[0.18em] text-fg-muted uppercase">
               Produção
             </span>
             <Image
@@ -76,7 +99,7 @@ export function SiteFooter() {
         </div>
 
         <div className="mt-8 flex items-center justify-center gap-2 opacity-55">
-          <span className="text-[0.65rem] uppercase tracking-[0.15em] text-fg-muted">
+          <span className="font-sans text-[0.6rem] tracking-[0.15em] text-fg-muted uppercase">
             Desenvolvido por
           </span>
           <Image

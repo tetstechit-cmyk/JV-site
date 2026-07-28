@@ -2,7 +2,41 @@
   "permissions": {
     "allow": [
       "WebFetch(domain:cantoroficialjoaov.wixsite.com)",
-      "Bash(npm install *)"
+      "Bash(npm install *)",
+      "Bash(command -v hermes)",
+      "Read(//Users/jp/.hermes/**)",
+      "Bash(npm ls *)",
+      "Bash(find ~ -maxdepth 4 -iname \"*hermes*\" -not -path \"*/node_modules/*\" -not -path \"*/.git/*\" 2>/dev/null | head -40; echo \"---done---\")",
+      "Bash(/Users/jp/.local/bin/hermes --help)",
+      "Bash(/Users/jp/.local/bin/hermes model *)",
+      "Bash(/Users/jp/.local/bin/hermes config *)",
+      "Bash(python3 /Users/jp/.claude/plugins/cache/ui-ux-pro-max-skill/ui-ux-pro-max/2.5.0/.claude/skills/ui-ux-pro-max/scripts/search.py 'landing hero storytelling trust conversion' --domain landing -n 4)",
+      "Bash(npm run *)",
+      "WebSearch",
+      "Bash(grep -oiE \"\\(ECONNREFUSED|ENOTFOUND|password authentication|does not exist|connect|DATABASE|relation .* does not exist|error[^<]{0,80}\\)\")",
+      "Bash(node -e ' *)",
+      "Bash(npx payload *)",
+      "Bash(PAYLOAD_MIGRATING=true npx payload migrate)",
+      "Bash(grep -viE \"SECURITY WARNING|sslmode|libpq|trace-warnings|^To prepare|^- If you|^See http|^$\")",
+      "Bash(perl -i -pe 's/--primary-foreground: #14100a;/--primary-foreground: #120c02;/g; s/--sidebar-primary-foreground: #14100a;/--sidebar-primary-foreground: #120c02;/g' src/app/globals.css)",
+      "Bash(perl -i -pe 's/#14100a/#120c02/g' src/components/site/whatsapp-float.tsx)",
+      "Bash(perl -i -pe 's/^  opacity: 0\\\\.85;/  opacity: 0.9;/' src/app/globals.css)",
+      "Bash(python3 -)",
+      "Bash(git check-ignore *)",
+      "Bash(curl -s -o /dev/null -w \"  auto/upload  → HTTP %{http_code}\\\\n\" --max-time 30 \"https://res.cloudinary.com/dcxkdbl7/auto/upload/v1/joao-vitor/g-jv2-1?_a=BAMAPqkS0\")",
+      "Bash(curl -s -o /dev/null -w \"  image/upload → HTTP %{http_code}\\\\n\" --max-time 30 \"https://res.cloudinary.com/dcxkdbl7/image/upload/joao-vitor/g-jv2-1.png\")",
+      "Bash(node -e \"console.log\\('sharp', require\\('./node_modules/sharp/package.json'\\).version\\); console.log\\('next', require\\('./node_modules/next/package.json'\\).version\\); console.log\\('payload', require\\('./node_modules/payload/package.json'\\).version\\)\")",
+      "Bash(curl -s \"http://localhost:3000/api/publicos?limit=100&depth=0\")",
+      "Bash(node -e \"let s='';process.stdin.on\\('data',d=>s+=d\\).on\\('end',\\(\\)=>{try{const j=JSON.parse\\(s\\);console.log\\('total:',j.totalDocs\\);console.log\\(j.docs.map\\(d=>\\({id:d.id,titulo:d.titulo,publicado:d.publicado}\\)\\)\\)}catch\\(e\\){console.log\\(s.slice\\(0,500\\)\\)}}\\)\")",
+      "Bash(curl -s \"http://localhost:3000/api/globals/home?depth=0\" -o /private/tmp/claude-501/-Users-jp-Documents-site-JV/2309c6f8-3084-496b-ba72-0f0655181e98/scratchpad/pub.json -w \"http=%{http_code}\\\\n\")",
+      "Bash(node -e \"const j=require\\('/private/tmp/claude-501/-Users-jp-Documents-site-JV/2309c6f8-3084-496b-ba72-0f0655181e98/scratchpad/pub.json'\\);console.log\\('heroLinha1:',j.heroLinha1,'| _status:',j._status,'| updatedAt:',j.updatedAt\\)\")",
+      "Bash(curl -s \"http://localhost:3000/api/globals/home?depth=0&draft=true\" -o /private/tmp/claude-501/-Users-jp-Documents-site-JV/2309c6f8-3084-496b-ba72-0f0655181e98/scratchpad/dft.json -w \"http=%{http_code}\\\\n\")",
+      "Bash(node -e \"const j=require\\('/private/tmp/claude-501/-Users-jp-Documents-site-JV/2309c6f8-3084-496b-ba72-0f0655181e98/scratchpad/dft.json'\\);console.log\\('heroLinha1:',j.heroLinha1,'| _status:',j._status,'| updatedAt:',j.updatedAt\\)\")",
+      "Bash(curl -s -o /dev/null -w \"http=%{http_code}\\\\n\" \"http://localhost:3000/api/globals/home/versions\")",
+      "Bash(curl -s -i \"http://localhost:3000/api/preview?path=/\")",
+      "Bash(curl -s -o /dev/null -w \"http=%{http_code}\\\\n\" \"http://localhost:3000/preview\")",
+      "Bash(curl -s \"http://localhost:3000/preview\")",
+      "Bash(curl -s -i \"http://localhost:3000/api/preview/sair\")"
     ]
   }
 }

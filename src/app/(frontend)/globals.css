@@ -5,9 +5,9 @@
 @custom-variant dark (&:is(.dark *));
 
 /* ============================================================
-   JOÃO VITOR — Design System "Meia-Noite no Palco"
-   Dark cinematográfico. Preto de palco, luz de refletor (âmbar),
-   coral da waveform da logo, teal de contraluz.
+   JOÃO VITOR — Design System "Memória"
+   Preto fosco, tipografia editorial. A experiência vem primeiro;
+   o artista é a assinatura.
    ============================================================ */
 
 @theme inline {
@@ -44,7 +44,7 @@
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
 
-  /* tokens de marca (geram utilitários: bg-ink, text-fg, bg-amber, ...) */
+  /* tokens de marca */
   --color-ink: var(--ink);
   --color-ink-2: var(--ink-2);
   --color-surface: var(--surface);
@@ -58,12 +58,11 @@
   --color-teal: var(--teal);
 
   /* tipografia */
-  --font-sans: var(--font-hanken);
-  --font-display: var(--font-oswald);
-  --font-heading: var(--font-oswald);
+  --font-sans: var(--font-dm-sans);
+  --font-display: var(--font-cormorant);
+  --font-heading: var(--font-cormorant);
   --font-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
 
-  /* raio */
   --radius-sm: calc(var(--radius) * 0.6);
   --radius-md: calc(var(--radius) * 0.8);
   --radius-lg: var(--radius);
@@ -72,9 +71,11 @@
   --radius-3xl: calc(var(--radius) * 2.2);
 }
 
-/* Paleta bruta — o site é dark-only, então :root já carrega o tema escuro. */
+/* Paleta — preto FOSCO (matte), sem brilho de vitrine. */
 :root {
-  --ink: #0a0a0b; /* fundo de palco */
+  /* Fundo PRETO FOSCO (aprovado) — sem gradiente de vitrine no body.
+     Cores de acento: identidade original do artista, preservada. */
+  --ink: #0b0b0b;
   --ink-2: #101013;
   --surface: #16161a; /* cards */
   --surface-2: #1e1e23; /* elevado */
@@ -82,10 +83,10 @@
   --fg-muted: #a29c93; /* cinza quente */
   --line: color-mix(in oklab, #f4f1ea 12%, transparent);
 
-  --amber: #eaa23a; /* refletor — primária */
+  --amber: #eaa23a; /* refletor — identidade do artista */
   --amber-bright: #f7c25c;
-  --coral: #ec6a5c; /* waveform da logo — secundária */
-  --teal: #33b7ac; /* contraluz — terciária, dose pequena */
+  --coral: #ec6a5c; /* assinatura da waveform */
+  --teal: #33b7ac; /* contraluz */
 
   --radius: 0.7rem;
 
@@ -106,7 +107,7 @@
   --accent-foreground: var(--amber-bright);
   --destructive: oklch(0.704 0.191 22.216);
   --border: var(--line);
-  --input: color-mix(in oklab, #f4f1ea 14%, transparent);
+  --input: color-mix(in oklab, #f2efe9 14%, transparent);
   --ring: var(--amber);
 
   --chart-1: var(--amber);
@@ -125,7 +126,6 @@
   --sidebar-ring: var(--amber);
 }
 
-/* .dark reusa os mesmos valores (html leva .dark p/ ligar utilitários dark:) */
 .dark {
   --background: var(--ink);
   --foreground: var(--fg);
@@ -143,7 +143,7 @@
   --accent-foreground: var(--amber-bright);
   --destructive: oklch(0.704 0.191 22.216);
   --border: var(--line);
-  --input: color-mix(in oklab, #f4f1ea 14%, transparent);
+  --input: color-mix(in oklab, #f2efe9 14%, transparent);
   --ring: var(--amber);
 }
 
@@ -153,23 +153,24 @@
   }
   body {
     @apply bg-background text-foreground;
-    /* rede de segurança: nenhuma seção gera scroll horizontal.
-       clip (não hidden) não quebra position:sticky/fixed. */
+    /* rede de segurança: nenhuma seção gera scroll horizontal. */
     overflow-x: clip;
-    /* Atmosfera contida: UM único brilho de refletor, discreto. */
-    background-image: radial-gradient(
-      55% 45% at 50% -10%,
-      color-mix(in oklab, var(--amber) 9%, transparent) 0%,
-      transparent 66%
-    );
-    background-attachment: fixed;
+    /* preto fosco: sem gradiente de vitrine, só profundidade sutil. */
+    background-color: var(--ink);
   }
   html {
     @apply font-sans;
   }
-  h1, h2, h3, h4 {
+  /* Títulos editoriais: Cormorant, sentence case, generoso.
+     Peso central do sistema — trocar aqui muda a página inteira. */
+  h1, h2, h3 {
     font-family: var(--font-display);
-    letter-spacing: -0.01em;
+    font-weight: 600;
+    letter-spacing: -0.015em;
+  }
+  h4 {
+    font-family: var(--font-display);
+    font-weight: 600;
   }
   /* Tailwind v4 removeu cursor:pointer default em <button> — repõe. */
   button:not(:disabled),
@@ -178,8 +179,18 @@
   }
 }
 
+/* Eyebrow — rótulo pequeno em sans, tracking largo. */
+.eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+}
+
 /* ============================================================
-   Soundwave — motif de assinatura (usado por <Soundwave />)
+   Soundwave — assinatura do artista (uso discreto)
    ============================================================ */
 .soundwave-bar {
   flex: 1 1 0%;
@@ -197,7 +208,6 @@
     var(--amber-bright) 100%
   );
 }
-/* Movimento contido: a onda "respira" (não pula). Gentil e lento. */
 [data-animated] .soundwave-bar {
   animation: soundwave 2s ease-in-out infinite;
   animation-delay: calc(var(--i) * -0.06s);
@@ -205,7 +215,7 @@
 @keyframes soundwave {
   0%, 100% {
     transform: scaleY(calc(var(--peak) * 0.58));
-    opacity: 0.72;
+    opacity: 0.7;
   }
   50% {
     transform: scaleY(var(--peak));
@@ -219,7 +229,7 @@
   }
 }
 
-/* voz de palco — marquee lento das frases */
+/* marquee lento (frases / clientes) */
 .marquee-track {
   animation: marquee 42s linear infinite;
 }
@@ -234,19 +244,37 @@
   }
 }
 
-/* scroll suave ao clicar no menu (glide, não pulo) — respeita reduced-motion */
+/* Ken Burns — respiração lenta em imagem de fundo (hero sem vídeo) */
+.kenburns {
+  animation: kenburns 24s ease-in-out infinite alternate;
+}
+@keyframes kenburns {
+  from {
+    transform: scale(1) translate3d(0, 0, 0);
+  }
+  to {
+    transform: scale(1.09) translate3d(0, -1.5%, 0);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .kenburns {
+    animation: none;
+  }
+}
+
+/* scroll suave ao clicar no menu — respeita reduced-motion */
 @media (prefers-reduced-motion: no-preference) {
   html {
     scroll-behavior: smooth;
   }
 }
 
-/* utilitário de textura/grão sutil p/ atmosfera premium */
+/* textura/grão sutil */
 .grain::after {
   content: "";
   position: absolute;
   inset: 0;
   pointer-events: none;
-  opacity: 0.035;
+  opacity: 0.03;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }

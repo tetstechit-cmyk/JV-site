@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Image from "next/image";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
@@ -9,22 +8,26 @@ import { WhatsappIcon } from "@/components/brand/social-icons";
 import { waLink } from "@/lib/site";
 
 const NAV = [
-  { href: "#biografia", label: "Bio" },
-  { href: "#diferenciais", label: "Diferenciais" },
-  { href: "#servicos", label: "Serviços" },
+  { href: "#momentos", label: "Momentos" },
+  { href: "#publicos", label: "Para quem" },
+  { href: "#processo", label: "Como funciona" },
+  { href: "#formatos", label: "Formatos" },
+  { href: "#artista", label: "O artista" },
   { href: "#agenda", label: "Agenda" },
-  { href: "#galeria", label: "Galeria" },
-  { href: "#kit-imprensa", label: "Kit" },
   { href: "#contato", label: "Contato" },
 ];
 
-const CTA_TEXT = "Olá João! Quero um orçamento para meu evento.";
+const CTA_TEXT =
+  "Olá! Quero conversar sobre uma experiência musical para o meu evento.";
 
-export function SiteHeader() {
+export function SiteHeader({
+  logo = "/brand/logo-jv-trim.png",
+}: {
+  logo?: string;
+}) {
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState("inicio");
 
-  // Escape fecha o menu mobile; trava o scroll do body enquanto aberto.
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => {
@@ -38,7 +41,7 @@ export function SiteHeader() {
     };
   }, [open]);
 
-  // Scroll-spy: marca a seção que está no centro da viewport.
+  // Scroll-spy: marca a seção no centro da viewport.
   useEffect(() => {
     const ids = ["inicio", ...NAV.map((n) => n.href.slice(1))];
     const els = ids
@@ -60,25 +63,25 @@ export function SiteHeader() {
 
   return (
     <>
-      <header className="fixed inset-x-0 top-0 z-50 border-b border-line/60 bg-ink/70 backdrop-blur-md">
+      <header className="fixed inset-x-0 top-0 z-50 border-b border-line/50 bg-ink/80 backdrop-blur-md">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-6 sm:px-10">
           <a
             href="#inicio"
             onClick={() => setOpen(false)}
-            aria-label="João Vitor — Cantor Oficial"
+            aria-label="João Vitor — Experiências Musicais"
             className="flex items-center"
           >
-            <Image
-              src="/brand/logo-jv-trim.png"
-              alt="João Vitor — Cantor Oficial"
-              width={722}
-              height={404}
-              priority
-              className="h-9 w-auto sm:h-10"
+            {/* Logo do painel tem proporção variável (pode ser quadrada);
+                <img> preserva o aspecto natural sem espremer.
+                eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={logo}
+              alt="João Vitor"
+              className="h-11 w-auto opacity-95 sm:h-12"
             />
           </a>
 
-          <nav className="hidden items-center gap-6 lg:flex">
+          <nav className="hidden items-center gap-7 lg:flex">
             {NAV.map((n) => {
               const isActive = active === n.href.slice(1);
               return (
@@ -87,7 +90,7 @@ export function SiteHeader() {
                   href={n.href}
                   aria-current={isActive ? "true" : undefined}
                   className={cn(
-                    "group relative font-display text-xs font-semibold uppercase tracking-[0.18em] transition-colors",
+                    "group relative font-sans text-[0.7rem] font-medium tracking-[0.16em] uppercase transition-colors",
                     isActive ? "text-fg" : "text-fg-muted hover:text-fg",
                   )}
                 >
@@ -113,7 +116,7 @@ export function SiteHeader() {
                 "hidden h-9 px-4 text-xs sm:inline-flex",
               )}
             >
-              Contratar
+              Fale conosco
             </a>
             <button
               type="button"
@@ -121,7 +124,7 @@ export function SiteHeader() {
               aria-expanded={open}
               aria-controls="mobile-nav"
               onClick={() => setOpen((v) => !v)}
-              className="flex size-11 items-center justify-center rounded-lg text-fg transition-colors hover:bg-surface-2 lg:hidden"
+              className="flex size-11 items-center justify-center rounded-sm text-fg transition-colors hover:bg-surface-2 lg:hidden"
             >
               {open ? <X className="size-6" /> : <Menu className="size-6" />}
             </button>
@@ -135,7 +138,7 @@ export function SiteHeader() {
         inert={!open}
         aria-hidden={!open}
         className={cn(
-          "fixed inset-x-0 top-16 bottom-0 z-40 bg-ink/95 backdrop-blur-xl transition-opacity duration-200 lg:hidden",
+          "fixed inset-x-0 top-16 bottom-0 z-40 bg-ink/97 backdrop-blur-xl transition-opacity duration-200 lg:hidden",
           open
             ? "pointer-events-auto opacity-100"
             : "pointer-events-none opacity-0",
@@ -147,7 +150,7 @@ export function SiteHeader() {
               key={n.href}
               href={n.href}
               onClick={() => setOpen(false)}
-              className="border-b border-line/50 py-4 font-display text-2xl font-bold uppercase tracking-tight text-fg"
+              className="border-b border-line/50 py-4 font-display text-2xl font-semibold text-fg"
             >
               {n.label}
             </a>
@@ -160,7 +163,7 @@ export function SiteHeader() {
             className={cn(buttonVariants({ size: "lg" }), "mt-6 h-12 gap-2 text-sm")}
           >
             <WhatsappIcon className="size-5" />
-            Contratar pro meu evento
+            Fale conosco
           </a>
         </nav>
       </div>
