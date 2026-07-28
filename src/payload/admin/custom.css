@@ -148,36 +148,12 @@ h1.render-title,
   color: var(--jv-muted);
 }
 
-/* ---------- RODAPÉ DA NAV (conta / sair) ----------
-   O Payload esconde o logout atrás de um ícone. Para um mantenedor
-   não-técnico isso é invisível — então damos destaque real. */
+/* ---------- RODAPÉ DA NAV ----------
+   O Payload tem um controle nativo de logout (ícone solto no rodapé da nav).
+   Nós fornecemos "Ver o site" + "Sair do painel" explícitos via RodapeNav,
+   então escondemos o nativo para não ficar duplicado. */
 .nav__controls {
-  gap: 0.4rem;
-  padding: 0.75rem 0.6rem;
-  border-block-start: 1px solid var(--jv-linha);
-  background: var(--jv-ink);
-}
-
-.nav__controls a,
-.nav__controls button {
-  border-radius: 6px;
-  padding: 0.45rem;
-  color: var(--jv-muted);
-  transition:
-    background 0.18s ease,
-    color 0.18s ease;
-}
-
-.nav__controls a:hover,
-.nav__controls button:hover {
-  background: var(--jv-surface-2);
-  color: var(--jv-fg);
-}
-
-/* "Sair" ganha cor de alerta discreta — ação de saída, não navegação */
-.nav__controls a[href*="logout"]:hover {
-  background: color-mix(in oklab, #d9705f 16%, transparent);
-  color: #f0a89b;
+  display: none !important;
 }
 
 /* ---------- BOTÕES ---------- */
