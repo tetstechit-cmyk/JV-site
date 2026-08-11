@@ -1,5 +1,6 @@
 import type { CollectionConfig } from "payload";
 import { publico, somenteAdmin } from "../access";
+import { revalidarAoMudar, revalidarAoExcluir } from "../hooks/revalidar";
 
 /**
  * Mídia — fonte única de imagem/vídeo do site.
@@ -10,6 +11,9 @@ import { publico, somenteAdmin } from "../access";
 export const Media: CollectionConfig = {
   slug: "media",
   labels: { singular: "Mídia", plural: "Mídias" },
+  // Trocar o ARQUIVO de uma foto muda a URL no site — sem isto a home ficava
+  // servindo a URL antiga (já apagada do Cloudinary) = imagem quebrada.
+  hooks: { afterChange: [revalidarAoMudar], afterDelete: [revalidarAoExcluir] },
   access: {
     read: publico,
     create: somenteAdmin,

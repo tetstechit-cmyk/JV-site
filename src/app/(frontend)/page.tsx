@@ -18,12 +18,12 @@ import { settings, promise } from "@/lib/site";
 import { getSettings, img } from "@/lib/content";
 
 /**
- * Revalida no máximo a cada 1h. O filtro "shows futuros" (data >= agora) é
- * avaliado na renderização — sem isto, um build de segunda mostraria shows
- * já passados a semana toda, até alguém salvar algo no painel. O
- * revalidatePath on-demand (ao publicar) continua valendo por cima disto.
+ * ISR de 60s como REDE DE SEGURANÇA: mesmo que o revalidatePath on-demand
+ * (nos hooks do painel) falhe, a home se atualiza sozinha em até 1 min.
+ * Também mantém o filtro "shows futuros" fresco. O on-demand continua
+ * valendo por cima (atualização instantânea quando funciona).
  */
-export const revalidate = 3600;
+export const revalidate = 60;
 
 const jsonLd = {
   "@context": "https://schema.org",
