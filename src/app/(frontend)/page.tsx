@@ -18,12 +18,14 @@ import { settings, promise } from "@/lib/site";
 import { getSettings, img } from "@/lib/content";
 
 /**
- * ISR de 60s como REDE DE SEGURANÇA: mesmo que o revalidatePath on-demand
- * (nos hooks do painel) falhe, a home se atualiza sozinha em até 1 min.
- * Também mantém o filtro "shows futuros" fresco. O on-demand continua
- * valendo por cima (atualização instantânea quando funciona).
+ * Home SEMPRE fresca: cada visita lê o banco. É o único jeito de garantir
+ * que "salvou no painel = apareceu no site" seja INSTANTÂNEO — o
+ * revalidatePath on-demand dentro dos hooks do Payload não dispara de forma
+ * confiável na Vercel. Custo: ~12 queries pequenas por request (Neon pooled
+ * aguenta de sobra para o tráfego deste site). Também mantém o filtro de
+ * "shows futuros" sempre correto.
  */
-export const revalidate = 60;
+export const dynamic = "force-dynamic";
 
 const jsonLd = {
   "@context": "https://schema.org",
