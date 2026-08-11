@@ -74,6 +74,7 @@ export interface Config {
     numeros: Numero;
     empresas: Empresa;
     depoimentos: Depoimento;
+    provaFotos: ProvaFoto;
     frases: Frase;
     shows: Show;
     leads: Lead;
@@ -93,6 +94,7 @@ export interface Config {
     numeros: NumerosSelect<false> | NumerosSelect<true>;
     empresas: EmpresasSelect<false> | EmpresasSelect<true>;
     depoimentos: DepoimentosSelect<false> | DepoimentosSelect<true>;
+    provaFotos: ProvaFotosSelect<false> | ProvaFotosSelect<true>;
     frases: FrasesSelect<false> | FrasesSelect<true>;
     shows: ShowsSelect<false> | ShowsSelect<true>;
     leads: LeadsSelect<false> | LeadsSelect<true>;
@@ -329,6 +331,25 @@ export interface Depoimento {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "provaFotos".
+ */
+export interface ProvaFoto {
+  id: number;
+  /**
+   * De preferência a REAÇÃO das pessoas: plateia, sorrisos, brindes — não só o João cantando.
+   */
+  imagem: number | Media;
+  legenda?: string | null;
+  /**
+   * Menor número aparece primeiro.
+   */
+  ordem?: number | null;
+  publicado?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "frases".
  */
 export interface Frase {
@@ -461,6 +482,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'depoimentos';
         value: number | Depoimento;
+      } | null)
+    | ({
+        relationTo: 'provaFotos';
+        value: number | ProvaFoto;
       } | null)
     | ({
         relationTo: 'frases';
@@ -608,6 +633,18 @@ export interface DepoimentosSelect<T extends boolean = true> {
   autor?: T;
   cargo?: T;
   citacao?: T;
+  ordem?: T;
+  publicado?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "provaFotos_select".
+ */
+export interface ProvaFotosSelect<T extends boolean = true> {
+  imagem?: T;
+  legenda?: T;
   ordem?: T;
   publicado?: T;
   updatedAt?: T;

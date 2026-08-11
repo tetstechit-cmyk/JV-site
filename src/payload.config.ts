@@ -20,6 +20,7 @@ import {
   Numeros,
   Empresas,
   Depoimentos,
+  ProvaFotos,
   Frases,
   Shows,
 } from "./payload/collections/conteudo";
@@ -69,6 +70,7 @@ export default buildConfig({
         "numeros",
         "empresas",
         "depoimentos",
+        "provaFotos",
         "frases",
         "shows",
       ],
@@ -106,6 +108,7 @@ export default buildConfig({
     Numeros,
     Empresas,
     Depoimentos,
+    ProvaFotos,
     Frases,
     // agenda
     Shows,

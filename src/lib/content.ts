@@ -175,6 +175,21 @@ export const getDepoimentos = cache(async () =>
   }, mock.testimonials),
 );
 
+export const getProvaFotos = cache(async () =>
+  seguro(async () => {
+    const docs = await listaPublicada("provaFotos");
+    return docs
+      .map((d, i) => ({
+        id: String(d.id ?? i),
+        src: urlDe(d.imagem) ?? "",
+        alt: String(
+          (d.imagem as { alt?: string })?.alt ?? d.legenda ?? "Momento do evento",
+        ),
+      }))
+      .filter((f) => f.src);
+  }, [] as { id: string; src: string; alt: string }[]),
+);
+
 export const getFrases = cache(async () =>
   seguro(async () => {
     const docs = await listaPublicada("frases");

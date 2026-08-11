@@ -2,6 +2,7 @@ import * as migration_20260727_215617_inicial from './20260727_215617_inicial';
 import * as migration_20260728_034526_marca from './20260728_034526_marca';
 import * as migration_20260728_040118_hero_youtube from './20260728_040118_hero_youtube';
 import * as migration_20260728_041053_hero_trecho from './20260728_041053_hero_trecho';
+import * as migration_20260811_214320_prova_fotos from './20260811_214320_prova_fotos';
 
 export const migrations = [
   {
@@ -22,6 +23,11 @@ export const migrations = [
   {
     up: migration_20260728_041053_hero_trecho.up,
     down: migration_20260728_041053_hero_trecho.down,
-    name: '20260728_041053_hero_trecho'
+    name: '20260728_041053_hero_trecho',
+  },
+  {
+    up: migration_20260811_214320_prova_fotos.up,
+    down: migration_20260811_214320_prova_fotos.down,
+    name: '20260811_214320_prova_fotos'
   },
 ];

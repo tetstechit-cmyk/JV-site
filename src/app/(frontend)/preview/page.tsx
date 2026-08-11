@@ -58,7 +58,7 @@ export default async function PreviewPage({
     );
   }
 
-  const [home, cfg, publicos, etapas, formatos, momentos, numeros, empresasDocs, depoimentos, frasesDocs, shows] =
+  const [home, cfg, publicos, etapas, formatos, momentos, numeros, provaFotos, empresasDocs, depoimentos, frasesDocs, shows] =
     await Promise.all([
       payload.findGlobal({ slug: "home", depth: 2, draft: true }),
       payload.findGlobal({ slug: "settings", depth: 1 }),
@@ -67,6 +67,7 @@ export default async function PreviewPage({
       lista(payload, "formatos"),
       lista(payload, "momentos"),
       lista(payload, "numeros"),
+      lista(payload, "provaFotos"),
       lista(payload, "empresas"),
       lista(payload, "depoimentos"),
       lista(payload, "frases"),
@@ -83,6 +84,7 @@ export default async function PreviewPage({
     formatos,
     momentos,
     numeros,
+    provaFotos,
     empresas: empresasDocs.map((e) => String(e.nome ?? "")).filter(Boolean),
     depoimentos,
     frases: frasesDocs.map((f) => String(f.texto ?? "")).filter(Boolean),

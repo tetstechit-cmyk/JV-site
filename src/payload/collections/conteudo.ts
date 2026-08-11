@@ -209,6 +209,36 @@ export const Empresas: CollectionConfig = {
   ],
 };
 
+/** 6d. Fotos — Quem já viveu (reação das pessoas / plateia) */
+export const ProvaFotos: CollectionConfig = {
+  slug: "provaFotos",
+  hooks: { afterChange: [revalidarAoMudar], afterDelete: [revalidarAoExcluir] },
+  labels: { singular: "Foto", plural: "4 · Fotos" },
+  access: acessoConteudo,
+  admin: {
+    useAsTitle: "legenda",
+    defaultColumns: ["legenda", "ordem", "publicado"],
+    group: PROVA,
+  },
+  defaultSort: "ordem",
+  fields: [
+    {
+      name: "imagem",
+      type: "upload",
+      relationTo: "media",
+      label: "Foto",
+      required: true,
+      admin: {
+        description:
+          "De preferência a REAÇÃO das pessoas: plateia, sorrisos, brindes — não só o João cantando.",
+      },
+    },
+    { name: "legenda", type: "text", label: "Legenda (opcional)" },
+    campoOrdem,
+    campoPublicado,
+  ],
+};
+
 /** 6c. Depoimentos */
 export const Depoimentos: CollectionConfig = {
   slug: "depoimentos",

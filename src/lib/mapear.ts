@@ -233,6 +233,22 @@ export function mapNumero(d: Bruto, i = 0): Stat {
   };
 }
 
+export const PROVA_FOTOS_PADRAO = [
+  { id: "f1", src: "/galeria/g-guitarra.png", alt: "Apresentação ao vivo" },
+  { id: "f2", src: "/galeria/g-jv1.png", alt: "João Vitor em evento" },
+  { id: "f3", src: "/galeria/g-moletom.png", alt: "Bastidores" },
+];
+
+export function mapProvaFoto(d: Bruto, i = 0) {
+  return {
+    id: String(d.id ?? i),
+    src: img(d.imagem) ?? "",
+    alt: String(
+      (d.imagem as { alt?: string })?.alt ?? d.legenda ?? "Momento do evento",
+    ),
+  };
+}
+
 export function mapDepoimento(d: Bruto, i = 0): Testimonial {
   return {
     id: String(d.id ?? i),

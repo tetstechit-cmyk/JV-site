@@ -4,15 +4,11 @@ import { SectionHeading } from "../section-heading";
 import { Reveal } from "../reveal";
 import type { Stat, Testimonial } from "@/lib/site";
 
-// ⚠️ Trocar por fotos REAIS de eventos (plateia, clientes) quando chegarem.
-const FOTOS = [
-  { src: "/galeria/g-guitarra.png", alt: "Apresentação ao vivo" },
-  { src: "/galeria/g-jv1.png", alt: "João Vitor em evento" },
-  { src: "/galeria/g-moletom.png", alt: "Bastidores" },
-];
+export type ProvaFoto = { id: string; src: string; alt: string };
 
 export type ProvaProps = {
   numeros: Stat[];
+  fotos: ProvaFoto[];
   empresas: string[];
   depoimentos: Testimonial[];
   eyebrow: string;
@@ -22,6 +18,7 @@ export type ProvaProps = {
 
 export function ProvaView({
   numeros,
+  fotos,
   empresas,
   depoimentos,
   eyebrow,
@@ -46,9 +43,9 @@ export function ProvaView({
 
         {/* Fotos — brief pede registro de quem viveu a experiência */}
         <div className="mt-16 grid gap-3 sm:grid-cols-3">
-          {FOTOS.map((p, i) => (
+          {fotos.map((p, i) => (
             <Reveal
-              key={p.src}
+              key={p.id}
               delay={i * 100}
               className="group relative aspect-[4/3] overflow-hidden rounded-sm border border-line bg-ink"
             >

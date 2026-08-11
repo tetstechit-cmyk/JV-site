@@ -22,6 +22,7 @@ export type DadosPreview = {
   formatos: Bruto[];
   momentos: Bruto[];
   numeros: Bruto[];
+  provaFotos: Bruto[];
   empresas: string[];
   depoimentos: Bruto[];
   frases: string[];
@@ -80,6 +81,7 @@ export function montarSecoes(
   const formatos = naLista("formatos", inicial.formatos);
   const momentos = naLista("momentos", inicial.momentos);
   const numeros = naLista("numeros", inicial.numeros);
+  const provaFotos = naLista("provaFotos", inicial.provaFotos);
   const depoimentos = naLista("depoimentos", inicial.depoimentos);
   const shows = naLista("shows", inicial.shows);
 
@@ -118,6 +120,10 @@ export function montarSecoes(
     formatos: { formatos: formatos.map(M.mapFormato), ...M.mapFormatosMeta(home) },
     prova: {
       numeros: numeros.map(M.mapNumero),
+      fotos: (() => {
+        const f = provaFotos.map(M.mapProvaFoto).filter((x) => x.src);
+        return f.length ? f : M.PROVA_FOTOS_PADRAO;
+      })(),
       empresas,
       depoimentos: depoimentos.map(M.mapDepoimento),
       ...M.mapProvaMeta(home),
