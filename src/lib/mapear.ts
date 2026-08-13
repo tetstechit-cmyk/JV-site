@@ -154,9 +154,12 @@ export function mapAgendaMeta(h: Bruto) {
   };
 }
 
+/** Canal padrão do João (fallback). */
+const CANAL_PADRAO =
+  "https://www.youtube.com/channel/UCNw1NSnSufVQxEgyG04BSsA";
+const VIDEO_PADRAO = "DThAk8-JNU4";
+
 export function mapArtista(h: Bruto, frases: string[]) {
-  const tipo = txt(h.spotifyTipo, "artist");
-  const id = txt(h.spotifyId, "1NcHjMiIbcuCDUW9sg0Fls");
   return {
     eyebrow: txt(h.artistaEyebrow, mock.artist.eyebrow),
     nome: txt(h.artistaNome, mock.artist.name),
@@ -164,7 +167,8 @@ export function mapArtista(h: Bruto, frases: string[]) {
     bio: txt(h.artistaBio, mock.artist.body),
     foto: img(h.artistaFoto) ?? mock.artist.image,
     frase: frases[1] ?? frases[0] ?? "",
-    spotifyUrl: `https://open.spotify.com/embed/${tipo}/${id}?utm_source=generator&theme=0`,
+    videoId: youtubeId(h.artistaVideoYoutube) ?? VIDEO_PADRAO,
+    canalUrl: txt(h.artistaCanalYoutube, CANAL_PADRAO),
   };
 }
 

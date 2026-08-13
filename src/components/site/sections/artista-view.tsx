@@ -2,6 +2,7 @@ import Image from "next/image";
 import { Container, Section } from "../container";
 import { Reveal } from "../reveal";
 import { Soundwave } from "@/components/brand/soundwave";
+import { YoutubeShowcase } from "../youtube-showcase";
 
 export type ArtistaProps = {
   eyebrow: string;
@@ -10,7 +11,8 @@ export type ArtistaProps = {
   bio: string;
   foto: string;
   frase: string;
-  spotifyUrl: string;
+  videoId: string;
+  canalUrl: string;
 };
 
 export function ArtistaView({
@@ -20,7 +22,8 @@ export function ArtistaView({
   bio,
   foto,
   frase,
-  spotifyUrl,
+  videoId,
+  canalUrl,
 }: ArtistaProps) {
   return (
     <Section id="artista" className="border-b border-line">
@@ -66,16 +69,8 @@ export function ArtistaView({
         </div>
 
         <Reveal delay={80} className="mt-16">
-          <p className="eyebrow mb-5">Ouça no Spotify</p>
-          <iframe
-            title={`${nome} no Spotify`}
-            src={spotifyUrl}
-            width="100%"
-            height="480"
-            loading="lazy"
-            style={{ border: 0, borderRadius: 4 }}
-            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-          />
+          <p className="eyebrow mb-5">Assista</p>
+          <YoutubeShowcase videoId={videoId} canalUrl={canalUrl} />
         </Reveal>
       </Container>
     </Section>

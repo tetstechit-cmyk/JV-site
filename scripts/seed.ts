@@ -110,8 +110,9 @@ async function main() {
       artistaHeadline: artist.headline,
       artistaBio: artist.body,
       artistaFoto: midia["galeria/g-guitarra.png"],
-      spotifyTipo: "artist",
-      spotifyId: "1NcHjMiIbcuCDUW9sg0Fls",
+      artistaVideoYoutube: "https://www.youtube.com/watch?v=DThAk8-JNU4",
+      artistaCanalYoutube:
+        "https://www.youtube.com/channel/UCNw1NSnSufVQxEgyG04BSsA",
 
       kitEyebrow: "Para produtores e RH",
       kitTitulo: "Kit de Imprensa",

@@ -143,6 +143,10 @@ export default buildConfig({
           : process.env.DATABASE_URL) || "",
     },
     migrationDir: path.resolve(dirname, "../migrations"),
+    // Schema é gerenciado por MIGRATIONS, não por push. Sem isto, o dev
+    // trava num prompt interativo tentando dropar colunas órfãs (ex.: as do
+    // Spotify removido) — e em produção push nem roda.
+    push: false,
   }),
 
   // Processamento de imagem no upload (redimensiona e normaliza).

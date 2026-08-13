@@ -881,13 +881,13 @@ export interface Home {
   artistaBio: string;
   artistaFoto?: (number | null) | Media;
   /**
-   * Playlist é o recomendado: você monta a ordem no app do Spotify e ela aparece igual aqui.
+   * Aparece como capa na seção do artista. Ao clicar, toca aqui no site. Cole o link do vídeo (ex.: https://www.youtube.com/watch?v=...).
    */
-  spotifyTipo?: ('artist' | 'playlist' | 'album') | null;
+  artistaVideoYoutube?: string | null;
   /**
-   * No Spotify: Compartilhar → Copiar link. Cole aqui só a parte depois de /artist/ ou /playlist/.
+   * Botão 'Ver canal no YouTube' abaixo do vídeo leva para cá.
    */
-  spotifyId?: string | null;
+  artistaCanalYoutube?: string | null;
   kitEyebrow?: string | null;
   kitTitulo?: string | null;
   kitLead?: string | null;
@@ -997,8 +997,8 @@ export interface HomeSelect<T extends boolean = true> {
   artistaHeadline?: T;
   artistaBio?: T;
   artistaFoto?: T;
-  spotifyTipo?: T;
-  spotifyId?: T;
+  artistaVideoYoutube?: T;
+  artistaCanalYoutube?: T;
   kitEyebrow?: T;
   kitTitulo?: T;
   kitLead?: T;

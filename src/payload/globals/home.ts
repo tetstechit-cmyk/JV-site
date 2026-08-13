@@ -183,27 +183,29 @@ export const Home: GlobalConfig = {
             { name: "artistaBio", type: "textarea", label: "Biografia", required: true },
             { name: "artistaFoto", type: "upload", relationTo: "media", label: "Foto" },
             {
-              name: "spotifyTipo",
-              type: "select",
-              label: "O que mostrar do Spotify",
-              defaultValue: "artist",
-              options: [
-                { label: "Perfil do artista (ordem automática do Spotify)", value: "artist" },
-                { label: "Playlist (você escolhe a ordem das músicas)", value: "playlist" },
-                { label: "Álbum", value: "album" },
-              ],
+              name: "artistaVideoYoutube",
+              type: "text",
+              label: "Vídeo de capa (link do YouTube)",
+              validate: (v: unknown) =>
+                !v ||
+                /(youtu\.be\/|youtube\.com\/)/.test(String(v)) ||
+                "Cole um link do YouTube (youtube.com ou youtu.be).",
               admin: {
                 description:
-                  "Playlist é o recomendado: você monta a ordem no app do Spotify e ela aparece igual aqui.",
+                  "Aparece como capa na seção do artista. Ao clicar, toca aqui no site. Cole o link do vídeo (ex.: https://www.youtube.com/watch?v=...).",
               },
             },
             {
-              name: "spotifyId",
+              name: "artistaCanalYoutube",
               type: "text",
-              label: "ID do Spotify",
+              label: "Link do canal no YouTube",
+              validate: (v: unknown) =>
+                !v ||
+                /youtube\.com\//.test(String(v)) ||
+                "Cole o link do canal (youtube.com/...).",
               admin: {
                 description:
-                  "No Spotify: Compartilhar → Copiar link. Cole aqui só a parte depois de /artist/ ou /playlist/.",
+                  "Botão 'Ver canal no YouTube' abaixo do vídeo leva para cá.",
               },
             },
           ],
