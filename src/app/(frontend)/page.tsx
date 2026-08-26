@@ -12,10 +12,9 @@ import { Prova } from "@/components/site/sections/prova";
 import { Artista } from "@/components/site/sections/artista";
 import { FrasesMarquee } from "@/components/site/sections/frases";
 import { Agenda } from "@/components/site/sections/agenda";
-import { KitImprensa } from "@/components/site/sections/kit-imprensa";
 import { Contato } from "@/components/site/sections/contato";
 import { settings, promise } from "@/lib/site";
-import { getSettings, img } from "@/lib/content";
+import { getSettings, img, txt } from "@/lib/content";
 
 /**
  * Home SEMPRE fresca: cada visita lê o banco. É o único jeito de garantir
@@ -48,6 +47,17 @@ export default async function HomePage() {
   const s = (cfg ?? {}) as Record<string, unknown>;
   const logo = img(s.logo) ?? "/brand/logo-jv-trim.png";
 
+  // Rótulos do menu vêm do painel; ordem e destinos são fixos.
+  const nav = [
+    { href: "#momentos", label: txt(s.menuExperiencia, "Experiência") },
+    { href: "#publicos", label: txt(s.menuEventos, "Eventos") },
+    { href: "#processo", label: txt(s.menuComoFunciona, "Como funciona") },
+    { href: "#formatos", label: txt(s.menuFormatos, "Formatos") },
+    { href: "#artista", label: txt(s.menuArtista, "João Vitor") },
+    { href: "#agenda", label: txt(s.menuAgenda, "Agenda") },
+    { href: "#contato", label: txt(s.menuContato, "Contato") },
+  ];
+
   return (
     <>
       <script
@@ -55,7 +65,7 @@ export default async function HomePage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <BarraRascunho />
-      <SiteHeader logo={logo} />
+      <SiteHeader logo={logo} nav={nav} />
       <main>
         {/* 1. A sensação */}
         <Hero />
@@ -75,7 +85,6 @@ export default async function HomePage() {
         <Artista />
         <FrasesMarquee />
         <Agenda />
-        <KitImprensa />
         {/* 9. A conversa */}
         <Contato />
       </main>

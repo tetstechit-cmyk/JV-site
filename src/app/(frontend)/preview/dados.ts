@@ -8,7 +8,6 @@ import type { ProvaProps } from "@/components/site/sections/prova-view";
 import type { ArtistaProps } from "@/components/site/sections/artista-view";
 import type { FrasesProps } from "@/components/site/sections/frases-view";
 import type { AgendaProps } from "@/components/site/sections/agenda-view";
-import type { KitProps } from "@/components/site/sections/kit-imprensa-view";
 import * as M from "@/lib/mapear";
 
 type Bruto = Record<string, unknown>;
@@ -40,7 +39,6 @@ export type Secoes = {
   artista: ArtistaProps;
   frases: FrasesProps;
   agenda: AgendaProps;
-  kit: KitProps;
 };
 
 /** Substitui (ou acrescenta) o documento editado dentro da lista. */
@@ -135,6 +133,5 @@ export function montarSecoes(
       ...M.mapAgendaMeta(home),
       whatsapp: wa,
     },
-    kit: M.mapKit(home, wa),
   };
 }

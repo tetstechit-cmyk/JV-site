@@ -12,7 +12,6 @@ import { ProvaView } from "@/components/site/sections/prova-view";
 import { ArtistaView } from "@/components/site/sections/artista-view";
 import { FrasesView } from "@/components/site/sections/frases-view";
 import { AgendaView } from "@/components/site/sections/agenda-view";
-import { KitImprensaView } from "@/components/site/sections/kit-imprensa-view";
 import type { DadosPreview } from "./dados";
 import { montarSecoes } from "./dados";
 
@@ -89,7 +88,6 @@ export function PreviewClient({
     { key: "artista", node: <ArtistaView {...s.artista} /> },
     { key: "frases", node: <FrasesView {...s.frases} /> },
     { key: "agenda", node: <AgendaView {...s.agenda} /> },
-    { key: "kit", node: <KitImprensaView {...s.kit} /> },
   ];
 
   const visiveis =

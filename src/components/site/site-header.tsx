@@ -7,12 +7,15 @@ import { buttonVariants } from "@/components/ui/button";
 import { WhatsappIcon } from "@/components/brand/social-icons";
 import { waLink } from "@/lib/site";
 
-const NAV = [
-  { href: "#momentos", label: "Momentos" },
-  { href: "#publicos", label: "Para quem" },
+export type NavItem = { href: string; label: string };
+
+/** Ordem e destinos são fixos; os rótulos vêm do painel (Configurações). */
+const NAV_PADRAO: NavItem[] = [
+  { href: "#momentos", label: "Experiência" },
+  { href: "#publicos", label: "Eventos" },
   { href: "#processo", label: "Como funciona" },
   { href: "#formatos", label: "Formatos" },
-  { href: "#artista", label: "O artista" },
+  { href: "#artista", label: "João Vitor" },
   { href: "#agenda", label: "Agenda" },
   { href: "#contato", label: "Contato" },
 ];
@@ -22,8 +25,10 @@ const CTA_TEXT =
 
 export function SiteHeader({
   logo = "/brand/logo-jv-trim.png",
+  nav = NAV_PADRAO,
 }: {
   logo?: string;
+  nav?: NavItem[];
 }) {
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState("inicio");
@@ -43,7 +48,7 @@ export function SiteHeader({
 
   // Scroll-spy: marca a seção no centro da viewport.
   useEffect(() => {
-    const ids = ["inicio", ...NAV.map((n) => n.href.slice(1))];
+    const ids = ["inicio", ...nav.map((n) => n.href.slice(1))];
     const els = ids
       .map((id) => document.getElementById(id))
       .filter((e): e is HTMLElement => e !== null);
@@ -59,7 +64,7 @@ export function SiteHeader({
     );
     els.forEach((el) => io.observe(el));
     return () => io.disconnect();
-  }, []);
+  }, [nav]);
 
   return (
     <>
@@ -82,7 +87,7 @@ export function SiteHeader({
           </a>
 
           <nav className="hidden items-center gap-7 lg:flex">
-            {NAV.map((n) => {
+            {nav.map((n) => {
               const isActive = active === n.href.slice(1);
               return (
                 <a
@@ -145,7 +150,7 @@ export function SiteHeader({
         )}
       >
         <nav className="flex h-full flex-col overflow-y-auto px-6 py-4">
-          {NAV.map((n) => (
+          {nav.map((n) => (
             <a
               key={n.href}
               href={n.href}

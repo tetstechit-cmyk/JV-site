@@ -46,6 +46,20 @@ export const Settings: GlobalConfig = {
           ],
         },
         {
+          label: "Menu do topo",
+          description:
+            "Nome de cada item do menu de navegação (topo do site). A ordem e para onde cada um leva é fixa; aqui você só troca o texto.",
+          fields: [
+            { name: "menuExperiencia", type: "text", label: "1 · Experiência (vai para Momentos)", defaultValue: "Experiência" },
+            { name: "menuEventos", type: "text", label: "2 · Eventos (vai para Para quem)", defaultValue: "Eventos" },
+            { name: "menuComoFunciona", type: "text", label: "3 · Como funciona (vai para Processo)", defaultValue: "Como funciona" },
+            { name: "menuFormatos", type: "text", label: "4 · Formatos", defaultValue: "Formatos" },
+            { name: "menuArtista", type: "text", label: "5 · João Vitor (vai para O artista)", defaultValue: "João Vitor" },
+            { name: "menuAgenda", type: "text", label: "6 · Agenda", defaultValue: "Agenda" },
+            { name: "menuContato", type: "text", label: "7 · Contato", defaultValue: "Contato" },
+          ],
+        },
+        {
           label: "Contato",
           fields: [
             {

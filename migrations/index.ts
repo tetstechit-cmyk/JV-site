@@ -4,6 +4,7 @@ import * as migration_20260728_040118_hero_youtube from './20260728_040118_hero_
 import * as migration_20260728_041053_hero_trecho from './20260728_041053_hero_trecho';
 import * as migration_20260811_214320_prova_fotos from './20260811_214320_prova_fotos';
 import * as migration_20260811_220000_artista_youtube from './20260811_220000_artista_youtube';
+import * as migration_20260825_000000_menu_labels from './20260825_000000_menu_labels';
 
 export const migrations = [
   {
@@ -35,5 +36,10 @@ export const migrations = [
     up: migration_20260811_220000_artista_youtube.up,
     down: migration_20260811_220000_artista_youtube.down,
     name: '20260811_220000_artista_youtube',
+  },
+  {
+    up: migration_20260825_000000_menu_labels.up,
+    down: migration_20260825_000000_menu_labels.down,
+    name: '20260825_000000_menu_labels',
   },
 ];
