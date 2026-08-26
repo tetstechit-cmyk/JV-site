@@ -11,7 +11,6 @@ import { FormatosView } from "@/components/site/sections/formatos-view";
 import { ProvaView } from "@/components/site/sections/prova-view";
 import { ArtistaView } from "@/components/site/sections/artista-view";
 import { FrasesView } from "@/components/site/sections/frases-view";
-import { AgendaView } from "@/components/site/sections/agenda-view";
 import type { DadosPreview } from "./dados";
 import { montarSecoes } from "./dados";
 
@@ -37,7 +36,6 @@ const SECAO_DO_SLUG: Record<string, string> = {
   empresas: "prova",
   depoimentos: "prova",
   frases: "frases",
-  shows: "agenda",
 };
 
 export function PreviewClient({
@@ -87,7 +85,6 @@ export function PreviewClient({
     { key: "prova", node: <ProvaView {...s.prova} /> },
     { key: "artista", node: <ArtistaView {...s.artista} /> },
     { key: "frases", node: <FrasesView {...s.frases} /> },
-    { key: "agenda", node: <AgendaView {...s.agenda} /> },
   ];
 
   const visiveis =

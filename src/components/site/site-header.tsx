@@ -16,7 +16,6 @@ const NAV_PADRAO: NavItem[] = [
   { href: "#processo", label: "Como funciona" },
   { href: "#formatos", label: "Formatos" },
   { href: "#artista", label: "João Vitor" },
-  { href: "#agenda", label: "Agenda" },
   { href: "#contato", label: "Contato" },
 ];
 

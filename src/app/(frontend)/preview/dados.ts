@@ -7,7 +7,6 @@ import type { FormatosProps } from "@/components/site/sections/formatos-view";
 import type { ProvaProps } from "@/components/site/sections/prova-view";
 import type { ArtistaProps } from "@/components/site/sections/artista-view";
 import type { FrasesProps } from "@/components/site/sections/frases-view";
-import type { AgendaProps } from "@/components/site/sections/agenda-view";
 import * as M from "@/lib/mapear";
 
 type Bruto = Record<string, unknown>;
@@ -38,7 +37,6 @@ export type Secoes = {
   prova: ProvaProps;
   artista: ArtistaProps;
   frases: FrasesProps;
-  agenda: AgendaProps;
 };
 
 /** Substitui (ou acrescenta) o documento editado dentro da lista. */
@@ -81,7 +79,6 @@ export function montarSecoes(
   const numeros = naLista("numeros", inicial.numeros);
   const provaFotos = naLista("provaFotos", inicial.provaFotos);
   const depoimentos = naLista("depoimentos", inicial.depoimentos);
-  const shows = naLista("shows", inicial.shows);
 
   const empresas =
     temEdicao && tipo === "collection" && slug === "empresas"
@@ -128,10 +125,5 @@ export function montarSecoes(
     },
     artista: M.mapArtista(home, frases),
     frases: { frases },
-    agenda: {
-      shows: shows.map(M.mapShow),
-      ...M.mapAgendaMeta(home),
-      whatsapp: wa,
-    },
   };
 }

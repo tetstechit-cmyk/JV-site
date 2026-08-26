@@ -11,7 +11,6 @@ import { Formatos } from "@/components/site/sections/formatos";
 import { Prova } from "@/components/site/sections/prova";
 import { Artista } from "@/components/site/sections/artista";
 import { FrasesMarquee } from "@/components/site/sections/frases";
-import { Agenda } from "@/components/site/sections/agenda";
 import { Contato } from "@/components/site/sections/contato";
 import { settings, promise } from "@/lib/site";
 import { getSettings, img, txt } from "@/lib/content";
@@ -54,7 +53,6 @@ export default async function HomePage() {
     { href: "#processo", label: txt(s.menuComoFunciona, "Como funciona") },
     { href: "#formatos", label: txt(s.menuFormatos, "Formatos") },
     { href: "#artista", label: txt(s.menuArtista, "João Vitor") },
-    { href: "#agenda", label: txt(s.menuAgenda, "Agenda") },
     { href: "#contato", label: txt(s.menuContato, "Contato") },
   ];
 
@@ -84,7 +82,6 @@ export default async function HomePage() {
         {/* 8. Só agora: o artista */}
         <Artista />
         <FrasesMarquee />
-        <Agenda />
         {/* 9. A conversa */}
         <Contato />
       </main>
