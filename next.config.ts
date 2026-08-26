@@ -6,6 +6,14 @@ const nextConfig: NextConfig = {
   turbopack: {
     root: import.meta.dirname,
   },
+  // sharp é nativo (Payload usa no processamento de imagem). O Turbopack o
+  // trata como módulo externo; sem forçar a inclusão, os binários por
+  // plataforma do libvips (@img/*) NÃO vão para o bundle serverless da Vercel
+  // e o runtime linux quebra com "libvips-cpp.so ... cannot open shared object".
+  serverExternalPackages: ["sharp"],
+  outputFileTracingIncludes: {
+    "/**": ["./node_modules/@img/**/*"],
+  },
   images: {
     // A Cloudinary serve as mídias pelo CDN dela — precisa estar liberado,
     // senão o next/image recusa otimizar a imagem.
