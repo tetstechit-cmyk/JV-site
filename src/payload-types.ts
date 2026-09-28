@@ -931,6 +931,13 @@ export interface Setting {
    * PNG QUADRADO, 512×512px (mínimo 256×256). Simples e legível bem pequeno — só o símbolo, sem texto. Se vazio, usa o favicon atual.
    */
   favicon?: (number | null) | Media;
+  menuExperiencia?: string | null;
+  menuEventos?: string | null;
+  menuComoFunciona?: string | null;
+  menuFormatos?: string | null;
+  menuArtista?: string | null;
+  menuAgenda?: string | null;
+  menuContato?: string | null;
   /**
    * Ex.: 5511986894866 — 55 (Brasil) + DDD + número.
    */
@@ -1033,6 +1040,13 @@ export interface HomeSelect<T extends boolean = true> {
 export interface SettingsSelect<T extends boolean = true> {
   logo?: T;
   favicon?: T;
+  menuExperiencia?: T;
+  menuEventos?: T;
+  menuComoFunciona?: T;
+  menuFormatos?: T;
+  menuArtista?: T;
+  menuAgenda?: T;
+  menuContato?: T;
   whatsapp?: T;
   whatsappExibicao?: T;
   cidade?: T;
