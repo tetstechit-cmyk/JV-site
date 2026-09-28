@@ -9,6 +9,7 @@ import {
   FacebookIcon,
   SpotifyIcon,
 } from "@/components/brand/social-icons";
+import { registrarConversaoContato } from "@/lib/gtag";
 import { Container, Section } from "../container";
 import { Reveal } from "../reveal";
 /** Conteúdo vindo do painel (buscado pelo server component `Contato`). */
@@ -70,6 +71,10 @@ export function ContatoForm({ conteudo }: { conteudo: ConteudoContato }) {
       .filter((l) => l !== "")
       .join("\n")
       .trim();
+    // Lead gerado = conversão no Google Ads. O evento não envia dados do
+    // formulário — desde que "conversões otimizadas" fique DESLIGADO no
+    // painel do Google Ads (se ligado, o gtag lê e-mail/telefone da página).
+    registrarConversaoContato();
     window.open(wa(text), "_blank", "noopener,noreferrer");
   }
 

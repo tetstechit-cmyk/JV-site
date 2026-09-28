@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, DM_Sans } from "next/font/google";
 import { getSettings, txt, img } from "@/lib/content";
+import { GoogleAds } from "@/components/analytics/google-ads";
 import "./globals.css";
 
 // Display editorial — voz de "experiência", elegante e memorável.
@@ -83,6 +84,7 @@ export default function RootLayout({
     >
       <body className="min-h-full" suppressHydrationWarning>
         {children}
+        <GoogleAds />
       </body>
     </html>
   );
